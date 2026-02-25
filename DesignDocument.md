@@ -9,8 +9,87 @@ If you are using mermaid markup to generate your class diagrams, you may edit th
 
 Include a UML class diagram of your initial design for this assignment. If you are using the mermaid markdown, you may include the code for it here. For a reminder on the mermaid syntax, you may go [here](https://mermaid.js.org/syntax/classDiagram.html)
 
+```mermaid
+classDiagram
+direction TB
+    
+    class DNInfoApp {
+        - DNInfoApp()
+        + main(String[]) void 
+    }
+    
+    namespace Controller {
+        class ArgsController {
+            + ArgsController()
+            String help
+        }
+    }
+    
+    namespace Model {
+        class DNRecord {
+            + DNRecord(String, String, String, String, String, String, double, double)
+            + region() String
+            + longitude() double
+            + latitude() double
+            + country() String
+            + hostname() String
+            + postal() String
+            + city() String
+            + ip() String
+        }
+        
+        class DataFormatter {
+            - DataFormatter()
+            - prettySingle(DNRecord, PrintStream) void
+            - writeJsonData(Collection~DNRecord~, OutputStream) void
+            - writeCSVData(Collection~DNRecord~, OutputStream) void
+            + write(Collection~DNRecord~, Formats, OutputStream) void
+            - prettyPrint(Collection~DNRecord~, OutputStream) void
+            - writeXmlData(Collection~DNRecord~, OutputStream) void
+        }
+        
+        class DomainNameModel { 
+            <<Interface>>
+            + writeRecords(List~DNRecord~, Formats, OutputStream) void
+            + getInstance(String) DomainNameModel
+            + getRecord(String) DNRecord
+              DomainNameModel instance
+              List~DNRecord~ records
+        }
+    
+        class NetUtils {
+            - NetUtils()
+            + getIpDetails(String, Formats) InputStream
+            + getApiUrl(String, Formats) String
+            + lookUpIp(String) String
+            + getApiUrl(String) String
+            + getUrlContents(String) InputStream
+            + getIpDetails(String) InputStream
+        }
+    
+        class Formats {
+            <<enumeration>>
+            + Formats()
+            + values() Formats[]
+            + valueOf(String) Formats
+            + containsValues(String) Formats?
+        }
 
-
+        class DomainXmlWrapper {
+            + DomainXmlWrapper(Collection~DNRecord~)
+        }
+    }
+    
+    DomainNameModel  ..>  DataFormatter 
+    ArgsController "1" *--> "model 1" DomainNameModel
+    ArgsController "1" *--> "format 1" Formats
+    DataFormatter  ..>  DNRecord
+    DataFormatter  ..>  Formats
+    DomainNameModel  -->  DNRecord
+    DomainNameModel  ..>  Formats
+    DomainXmlWrapper "1" *--> "domain *" DNRecord
+    NetUtils  ..>  Formats
+```
 
 
 ## (INITIAL DESIGN): Tests to Write - Brainstorm
