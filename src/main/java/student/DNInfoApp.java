@@ -1,4 +1,4 @@
-package student
+package student;
 
 import model.*;
 import controller.*;
