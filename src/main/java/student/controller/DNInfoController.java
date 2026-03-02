@@ -1,5 +1,6 @@
-package student;
-
+package student.controller;
+import student.model.*;
+import student.view.*;
 import java.io.PrintStream;
 
 /**

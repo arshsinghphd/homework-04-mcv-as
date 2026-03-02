@@ -1,4 +1,5 @@
-package student;
+import student.view.*;
+import student.model.*;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

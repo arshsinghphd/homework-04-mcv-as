@@ -1,8 +1,10 @@
 package student;
+import student.controller.*;
+import student.model.*;
+import student.view.*;
 
 /** This class is the main entry point to the app. */
 public final class DNInfoApp {
-
 
     /** Private constructor to prevent instantiation. */
     private DNInfoApp() {

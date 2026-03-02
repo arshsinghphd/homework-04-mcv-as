@@ -1,4 +1,6 @@
-package student;
+import student.model.*;
+import student.view.*;
+import student.controller.*;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -14,7 +16,7 @@ public class TestDNInfoController {
     PrintStream testOut = new PrintStream(outContent);
     
     // this Domain object will be used in Sim 0 and Sim 1
-    Domain simDomain = new Domain("www.github.com", "140.82.112.3", 
+    Domain simDomain = new Domain("www.github.com", "140.82.112.3",
             "San Francisco", "California", "US", "94110", 37.7509, -122.4153);
 
 

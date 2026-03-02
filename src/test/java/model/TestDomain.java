@@ -1,5 +1,5 @@
-package student;
-
+import student.model.*;
+import student.view.*;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
