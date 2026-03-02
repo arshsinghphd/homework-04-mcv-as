@@ -35,9 +35,9 @@ code as it is meant to help you understand some of the concepts.
    User.firstName(); // not getName()
    ```
    * The only catch is that all fields in a record are final and immutable. Thus, one cannot use records:
-     * if one needs to be modify any of the fields later on.
+     * if one needs to modify any of the fields later on.
      * if we want the methods to be inherited or extended or overridden.
-   * In this way records do away with many benefits of object oriented programming for string encapsulation. The classes are final class. They cannot be inherited, extended, or their method overridden - no abstraction, inheritance, or polymorphism.
+   * In this way records do away with some benefits of object oriented programming for string encapsulation. The classes are final class. They cannot be inherited, extended, or their method overridden - no abstraction, inheritance, or polymorphism.
    * But then, often by design, we need some classes to not be inherited, extended or their methods overridden, or their fields modified, for example when we are reading from databases. In these cases records are a perfect hassle-free solution.
 
 7. What is a java "bean"?
