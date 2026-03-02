@@ -1,7 +1,4 @@
-package controller;
-
-import model.*;
-import view.*;
+package student;
 
 import java.io.PrintStream;
 

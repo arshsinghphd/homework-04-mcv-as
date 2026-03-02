@@ -1,9 +1,5 @@
 package student;
 
-import model.*;
-import controller.*;
-import view.*;
-
 /** This class is the main entry point to the app. */
 public final class DNInfoApp {
 

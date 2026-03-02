@@ -1,4 +1,4 @@
-package model;
+package student;
 
 public record Domain(String hostname, String ip, String city, String region,
                      String country, String postal, double latitude, 

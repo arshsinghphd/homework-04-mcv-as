@@ -1,6 +1,4 @@
-import controller.*;
-import model.*;
-import view.*;
+package student;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;

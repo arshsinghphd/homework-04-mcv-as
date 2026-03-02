@@ -1,4 +1,4 @@
-package model;
+package student;
 
 /**
  * Exception thrown when a domain cannot be found locally or on the internet.

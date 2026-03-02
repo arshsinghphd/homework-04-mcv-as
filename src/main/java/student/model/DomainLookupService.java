@@ -1,4 +1,4 @@
-package model;
+package student;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.JsonNode;

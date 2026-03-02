@@ -1,6 +1,4 @@
-package view;
-
-import model.Domain;
+package student;
 
 import java.io.PrintStream;
 

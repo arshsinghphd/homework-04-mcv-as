@@ -1,6 +1,5 @@
-package view;
+package student;
 
-import model.Domain;
 import java.io.PrintStream;
 
 public class XMLView implements View {

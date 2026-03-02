@@ -1,4 +1,4 @@
-package view;
+package student;
 
 public class ViewFactory{
     public static View getView(Format format) {
