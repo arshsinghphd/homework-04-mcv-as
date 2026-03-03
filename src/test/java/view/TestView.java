@@ -7,7 +7,11 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import static org.junit.jupiter.api.Assertions.*;
 
-/** Tests for all view classes */
+/**
+ * Tests for all view classes.
+ * Format enum enforces the kind of input possible to ViewFactory.
+ * Thus, the only edge case is null input.
+ */
 class TestView {
     
     Domain simDomain;
@@ -24,7 +28,7 @@ class TestView {
     }
 
     /**
-     * Tests that ViewFactory throws an exception for an null format.
+     * Tests that ViewFactory throws an exception for a null format.
      */
     @Test
     void testInvalidFormat() {
@@ -37,7 +41,7 @@ class TestView {
      */
     @Test
     void testPrettyView() {
-        View pv = ViewFactory.getView(Format.PRETTY);  // static method getView
+        IView pv = ViewFactory.getView(Format.PRETTY);  // static method getView
         pv.render(simDomain, testOut);
         String output = outContent.toString();
         String[] lines = output.split("\\n");
@@ -52,7 +56,7 @@ class TestView {
      */
     @Test
     void testCSVView() {
-        View pv = ViewFactory.getView(Format.CSV);  // static method getView
+        IView pv = ViewFactory.getView(Format.CSV);  // static method getView
         pv.render(simDomain, testOut);
         String output = outContent.toString();
         String[] lines = output.split("\\n");
@@ -68,7 +72,7 @@ class TestView {
      */
     @Test
     void testXMLView() {
-        View pv = ViewFactory.getView(Format.XML);  // static method getView
+        IView pv = ViewFactory.getView(Format.XML);  // static method getView
         pv.render(simDomain, testOut);
         String output = outContent.toString();
         String[] lines = output.split("\\n");
@@ -83,7 +87,7 @@ class TestView {
      */
     @Test
     void testJSONView() {
-        View pv = ViewFactory.getView(Format.JSON);  // static method getView
+        IView pv = ViewFactory.getView(Format.JSON);  // static method getView
         pv.render(simDomain, testOut);
         String output = outContent.toString();
         String[] lines = output.split("\\n");

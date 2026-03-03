@@ -8,15 +8,18 @@ import java.io.File;
 import java.util.List;
 import java.util.ArrayList;
 
-
+/** Class DomainRepository reads and writes to a local XML file. */
 public class DomainRepository {
-
+    /** Stores the string path to the local XML file */
     private static final String XML_FILE = "data/hostrecords.xml";
+    /* Stores an xml mapper */
     private final XmlMapper mapper = new XmlMapper();
 
+    /* Empty constructor to prevent instantiation */
     public DomainRepository() {
     }
 
+    /* Record DomainList stores a list of Domain objected created by reading the XML file row by row. */
     @JacksonXmlRootElement(localName = "domainList")
     record DomainList(
         //decorator parameter. says we do not have wrapper
@@ -25,7 +28,8 @@ public class DomainRepository {
         // tag in the XML
         @JacksonXmlProperty(localName = "domain")  // following the example xml
 
-        List<Domain> domains) {}
+        List<Domain> domains) {
+        }
 
 
     /**
@@ -36,14 +40,17 @@ public class DomainRepository {
     public Domain findByHostname(String hostname) throws Exception {
         File file = new File(XML_FILE);
 
-        if (!file.exists()) 
+        if (!file.exists()) {
             return null;   // return null if file not found
+        }
 
         try {
             DomainList domainList = mapper.readValue(file, DomainList.class);
             // Linear search for hostname among domains in domainList
-            if (domainList.domains() == null) 
-                return null;
+            if (domainList.domains() == null) {
+                return null;   // return null if file not found
+            }
+
             for (Domain domain : domainList.domains()) {
                 if (domain.hostname().equalsIgnoreCase(hostname)) {
                     return domain;  
@@ -66,8 +73,9 @@ public class DomainRepository {
     public void save(Domain domain) throws Exception {
         File file = new File(XML_FILE);
 
-        if (!file.exists()) 
+        if (!file.exists()) {
             return;   // return void if file not found
+        }
 
         try {
             DomainList domainList = mapper.readValue(file, DomainList.class);

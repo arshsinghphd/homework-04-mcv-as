@@ -1,9 +1,11 @@
 package student.view;
 
-public class ViewFactory{
-    public static View getView(Format format) {
-        if (format == null)
+/** Parses format and returns a matching function. */
+public class ViewFactory {
+    public static IView getView(Format format) {
+        if (format == null) {
             throw new IllegalArgumentException("Format cannot be null");
+        }
         switch (format) {
             case PRETTY:
                 return new PrettyView();

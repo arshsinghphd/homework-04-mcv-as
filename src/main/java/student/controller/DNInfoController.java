@@ -8,7 +8,9 @@ import java.io.PrintStream;
  * Handles the logic of looking up a domain and displaying it.
  */
 public class DNInfoController {
+    /** Stores Domain information in the local XML file */
     private final DomainRepository repo;
+    /** The DomainLookupService object that will look-up information if corresponding Domain is not in repo.*/
     private final DomainLookupService lookupService;
 
     /**
@@ -29,19 +31,21 @@ public class DNInfoController {
      * 
      * @param hostname the hostname to look up
      * @param format the format to display the result in
+     * @param out the PrintStream to use
      * @throws Exception if the domain cannot be found
      */
     public void handle(String hostname, Format format, PrintStream out) throws Exception {
+        /** A domain object. */
         Domain domain;
-        domain = repo.findByHostname(hostname);
-        if (domain == null) {
-            domain = lookupService.lookup(hostname);
+        domain = repo.findByHostname(hostname); // look up domain in repo
+        if (domain == null) {  // if not found
+            domain = lookupService.lookup(hostname);  // look-up on the internet
             if (domain == null) {
-               throw new DomainNotFoundException(hostname);
+               throw new DomainNotFoundException(hostname);   // still not found, throw an error
             }
-            repo.save(domain);
+            repo.save(domain);  // if found, add to repo
         }
-        View view = ViewFactory.getView(format);
-        view.render(domain, out);
+        IView view = ViewFactory.getView(format); // return a view based on format
+        view.render(domain, out);  // render the information from domain to out
     }
 }

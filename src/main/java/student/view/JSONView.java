@@ -3,7 +3,7 @@ import student.model.*;
 
 import java.io.PrintStream;
 
-public class JSONView implements View {
+public class JSONView implements IView {
     @Override
     public void render(Domain domain, PrintStream out) {
         out.printf("{%n");

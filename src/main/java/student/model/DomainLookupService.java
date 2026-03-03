@@ -12,8 +12,8 @@ public class DomainLookupService {
     /**
      * This method will look up a domain on the internet by hostname. 
      * Returns a Domain object if found.
-     * @param hostname
-     * @return domain
+     * @param hostname hostname of the domain
+     * @return domain Domain object
      * @throws Exception if anything does not work.
      */
     public Domain lookup(String hostname) throws Exception {

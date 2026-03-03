@@ -8,11 +8,14 @@ import java.io.PrintStream;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-/** Tests the class DNIInfoController */
+/**
+ * Tests the class DNIInfoController using two simulated (dummy) DomainRepository and DomainLookupService objects.
+ */
 public class TestDNInfoController {
 
-    // these local variables will capture output
+    /** this local variables will capture output ByteArray. */
     ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+    /** this local variables will capture output PrintStream. */
     PrintStream testOut = new PrintStream(outContent);
     
     // this Domain object will be used in Sim 0 and Sim 1
@@ -21,24 +24,24 @@ public class TestDNInfoController {
 
 
     /*--- SIM 0 fileds ---*/
-    // Sim 0: simulated DomainRepo object found in local database
+    // Sim 0: simulated DomainRepo object found in local database, returns simDomain
     DomainRepository stubRepo0 = new DomainRepository() {
         @Override
         public Domain findByHostname(String hostname) {
             return simDomain;
         }
     };
-    // Sim 0: simulated DomainLookupService object that will not be called
+    // Sim 0: simulated DomainLookupService object that should not be called ever, here for testing, returns null.
     DomainLookupService stubLookupService0 = new DomainLookupService() {
         @Override
         public Domain lookup(String hostname) throws Exception {
             fail("Lookup service should not be called if domain found locally");
-            return null;
+            return null;  // since a Domain objected is expected in return.
         }
     };
 
-    /*--- SIM 1 fields ---*/
-    // Sim 1: hostname not found in local database
+    /*--- SIM 1 fileds ---*/
+    // Sim 1: simulate hostname not found in local database, always returns null.
     DomainRepository stubRepo1 = new DomainRepository() {
         @Override
         public Domain findByHostname(String hostname) {
@@ -46,7 +49,7 @@ public class TestDNInfoController {
         }
     };
 
-    // Sim 1: hostname Lookup on Internet returns simDomain
+    // Sim 1: simulate hostname Lookup on Internet, always returns simDomain
     DomainLookupService stubLookupService1 = new DomainLookupService() {
         @Override
         public Domain lookup(String hostname) {  
@@ -56,7 +59,7 @@ public class TestDNInfoController {
 
     /** 
      * SIM 0 Test 1
-     * If stubLookupService0 gets called the test fails
+     * If stubLookupService0 object gets called the test fails
      * Also tests Pretty Print interaction
      */
     @Test
@@ -73,7 +76,7 @@ public class TestDNInfoController {
 
     /** 
      * SIM 0 Test 2
-     * If stubLookupService0 gets called the test fails
+     * If stubLookupService0 object gets called the test fails
      *  Also tests JSON interaction.
      */
     @Test

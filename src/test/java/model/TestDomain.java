@@ -3,8 +3,12 @@ import student.view.*;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * JUnit tests for Domain Classes.
+ */
 class TestDomain {
-    
+
+    /** Tests the constructor based on happy path input. */
     @Test
     void testHappyConstructor() {
         Domain domain = new Domain("www.github.com", "140.82.112.3", 
@@ -13,7 +17,8 @@ class TestDomain {
         assertEquals("www.github.com", domain.hostname());
         assertEquals("140.82.112.3", domain.ip());
     }
-    
+
+    /** Tests the constructor with an invalid hostname argument. */
     @Test
     void testInvalidHostName() {
         IllegalArgumentException exception = assertThrows(
@@ -26,6 +31,7 @@ class TestDomain {
         assertEquals("Hostname cannot be null or empty", exception.getMessage());
     }
 
+    /** Tests the constructor with an invalid IP argument. */
     @Test
     void testInvalidIP() {
         IllegalArgumentException exception = assertThrows(
@@ -38,6 +44,7 @@ class TestDomain {
         assertEquals("IP cannot be null or empty", exception.getMessage());
     }
 
+    /** Tests the constructor with an invalid city argument. */
     @Test
     void testInvalidCity() {
         IllegalArgumentException exception = assertThrows(
@@ -50,6 +57,7 @@ class TestDomain {
         assertEquals("City cannot be null or empty", exception.getMessage());
     }
 
+    /** Tests the constructor with an invalid region argument. */
     @Test
     void testInvalidRegion() {
         IllegalArgumentException exception = assertThrows(
@@ -62,6 +70,7 @@ class TestDomain {
         assertEquals("Region cannot be null or empty", exception.getMessage());
     }
 
+    /** Tests the constructor with an invalid country argument. */
     @Test
     void testInvalidCountry() {
         IllegalArgumentException exception = assertThrows(
@@ -74,6 +83,7 @@ class TestDomain {
         assertEquals("Country cannot be null or empty", exception.getMessage());
     }
 
+    /** Tests the constructor with an invalid postal-code argument. */
     @Test
     void testInvalidPostal() {
         IllegalArgumentException exception = assertThrows(
@@ -86,6 +96,7 @@ class TestDomain {
         assertEquals("Postal cannot be null or empty", exception.getMessage());
     }
 
+    /** Tests the constructor with an invalid latitude argument. */
     @Test
     void testInvalidLatitude() {
         IllegalArgumentException exception = assertThrows(
@@ -98,6 +109,7 @@ class TestDomain {
         assertEquals("Latitude must be between -90 and 90", exception.getMessage());
     }
 
+    /** Tests the constructor with an invalid longitude argument. */
     @Test
     void testInvalidLongitude() {
         IllegalArgumentException exception = assertThrows(

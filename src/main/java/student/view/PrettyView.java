@@ -4,7 +4,7 @@ import student.model.*;
 
 import java.io.PrintStream;
 
-public class PrettyView implements View {
+public class PrettyView implements IView {
 
     @Override
     public void render(Domain domain, PrintStream out) {

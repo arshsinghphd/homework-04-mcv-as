@@ -4,7 +4,7 @@ import student.model.*;
 
 import java.io.PrintStream;
 
-public class XMLView implements View {
+public class XMLView implements IView {
     @Override
     public void render(Domain domain, PrintStream out) {
         out.printf("<domain>%n");

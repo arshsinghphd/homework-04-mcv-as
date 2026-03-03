@@ -3,7 +3,7 @@ import student.model.*;
 
 import java.io.PrintStream;
 
-public class CSVView implements View {
+public class CSVView implements IView {
     @Override
     public void render(Domain domain, PrintStream out) {
         out.println("hostname,ip,city,region,country,postal,latitude,longitude");

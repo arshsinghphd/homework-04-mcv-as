@@ -3,42 +3,103 @@ import java.io.*;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
 
+/** Test DNIInfoApp. */
 class TestDNInfoApp {
-
+    /**
+     * Stores the System.out stream.
+     */
     private final PrintStream originalOut = System.out;
+    /**
+     * Converts PrintStream to byte array.
+     */
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
 
+    /**
+     * Set-up, divert the output to System.out.
+     */
     @BeforeEach
     void setUpStream() {
         System.setOut(new PrintStream(outContent));
     }
 
+    /**
+     * Restore the output to System.out after tests.
+     */
     @AfterEach
     void restoreStream() {
         System.setOut(originalOut);
         outContent.reset();
     }
 
+
+    /**
+     * Tests the app returns as expected: with no args.
+     */
+    @Test
+    void testPrintsHelpMessage() {
+        DNInfoApp.main(new String[]{});
+        String errors = outContent.toString();
+        String[] lines = errors.split("\\n");
+        assertTrue(lines[0].contains("Usage:"));
+    }
+
+    /**
+     * Tests the app returns as expected: with unexpected format.
+     */
+    @Test
+    void testUnxpectedFormat() {
+        DNInfoApp.main(new String[]{"www.github.com", "yml"});
+        String errors = outContent.toString();
+        String[] lines = errors.split("\\n");
+        assertTrue(lines[0].contains("Invalid"));
+    }
+
+    /**
+     * Tests the app does not run into errors with happy path args: pretty print format.
+     */
     @Test
     void testRunWithProperArgumentsPretty() {
         assertDoesNotThrow(() -> DNInfoApp.main(new String[]{"www.github.com", "pretty"}));
     }
 
+    /**
+     * Tests the app does not run into errors with happy path args: XML format.
+     */
     @Test
     void testRunWithProperArgumentsXML() {
         assertDoesNotThrow(() -> DNInfoApp.main(new String[]{"www.github.com", "xml"}));
     }
 
+    /**
+     * Tests the app does not run into errors with happy path args: json format.
+     */
     @Test
     void testRunWithProperArgumentsJSON() {
         assertDoesNotThrow(() -> DNInfoApp.main(new String[]{"www.github.com", "json"}));
     }
 
+    /**
+     * Tests the app does not run into errors with happy path args: csv format.
+     */
     @Test
     void testRunWithProperArgumentsCSV() {
         assertDoesNotThrow(() -> DNInfoApp.main(new String[]{"www.github.com", "csv"}));
     }
 
+    /**
+     * Tests the app returns as expected: pretty print format.
+     */
+    @Test
+    void testPrintsExpectedPretty() {
+        DNInfoApp.main(new String[]{"www.github.com", "pretty"});
+        String output = outContent.toString();
+        String[] lines = output.split("\\n");
+        assertTrue(lines[0].contains("www.github.com"));
+    }
+
+    /**
+     * Tests the app returns as expected: csv format.
+     */
     @Test
     void testPrintsExpectedCSV() {
         DNInfoApp.main(new String[]{"www.github.com", "csv"});
@@ -47,19 +108,25 @@ class TestDNInfoApp {
         assertEquals("www.github.com,140.82.112.3,San Francisco,California,US,94110,37.7509,-122.4153", lines[1]);
     }
 
+    /**
+     * Tests the app returns as expected: xml format.
+     */
     @Test
-    void testPrintsExpectedHelpMessage() {
-        DNInfoApp.main(new String[]{});
-        String errors = outContent.toString();
-        String[] lines = errors.split("\\n");
-        assertTrue(lines[0].contains("Usage:"));
+    void testPrintsExpectedXML() {
+        DNInfoApp.main(new String[]{"www.github.com", "xml"});
+        String output = outContent.toString();
+        String[] lines = output.split("\\n");
+        assertTrue(lines[1].contains("www.github.com"));
     }
 
+    /**
+     * Tests the app returns as expected: json format.
+     */
     @Test
-    void testUnxpectedFormat() {
-        DNInfoApp.main(new String[]{"www.github.com", "yml"});
-        String errors = outContent.toString();
-        String[] lines = errors.split("\\n");
-        assertTrue(lines[0].contains("Invalid"));
+    void testPrintsExpectedJSON() {
+        DNInfoApp.main(new String[]{"www.github.com", "json"});
+        String output = outContent.toString();
+        String[] lines = output.split("\\n");
+        assertTrue(lines[1].contains("www.github.com"));
     }
 }
