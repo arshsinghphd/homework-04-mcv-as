@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.JsonNode;
 import java.net.HttpURLConnection;
 import java.net.InetAddress;
 import java.net.URL;
-import java.net.UnknownHostException;
 import java.util.Scanner;
 
 public class DomainLookupService {
@@ -48,9 +47,7 @@ public class DomainLookupService {
             return new Domain(hostname, ip, city, region, country, postal, 
                         latitude, longitude);
         } catch (Exception e) {
-            throw new Exception(String.format(
-                                    "Error looking up %s: %s", 
-                                        hostname, e.getMessage()));
+            throw new DomainNotFoundException(hostname);
         }
     }
 }
