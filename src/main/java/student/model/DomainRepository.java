@@ -10,16 +10,17 @@ import java.util.ArrayList;
 
 /** Class DomainRepository reads and writes to a local XML file. */
 public class DomainRepository {
-    /** Stores the string path to the local XML file */
+    /** Stores the string path to the local XML file. */
     private static final String XML_FILE = "data/hostrecords.xml";
-    /* Stores an xml mapper */
+
+    /** Stores an xml mapper */
     private final XmlMapper mapper = new XmlMapper();
 
-    /* Empty constructor to prevent instantiation */
+    /** Empty constructor to prevent instantiation */
     public DomainRepository() {
     }
 
-    /* Record DomainList stores a list of Domain objected created by reading the XML file row by row. */
+    /** Record DomainList stores a list of Domain objected created by reading the XML file row by row. */
     @JacksonXmlRootElement(localName = "domainList")
     record DomainList(
         //decorator parameter. says we do not have wrapper
@@ -30,7 +31,6 @@ public class DomainRepository {
 
         List<Domain> domains) {
         }
-
 
     /**
      * Reader: looks for domain information by hostname and returns it.

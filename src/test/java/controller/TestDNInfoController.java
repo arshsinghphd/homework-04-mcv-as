@@ -8,13 +8,13 @@ import java.io.PrintStream;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-/**
- * Tests the class DNIInfoController using two simulated (dummy) DomainRepository and DomainLookupService objects.
+/** Tests the class DNInfoController using two simulated (dummy) DomainRepository and DomainLookupService objects.
  */
 public class TestDNInfoController {
 
     /** this local variables will capture output ByteArray. */
     ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+
     /** this local variables will capture output PrintStream. */
     PrintStream testOut = new PrintStream(outContent);
     
@@ -23,7 +23,7 @@ public class TestDNInfoController {
             "San Francisco", "California", "US", "94110", 37.7509, -122.4153);
 
 
-    /*--- SIM 0 fileds ---*/
+    //*--- SIM 0 fields ---*
     // Sim 0: simulated DomainRepo object found in local database, returns simDomain
     DomainRepository stubRepo0 = new DomainRepository() {
         @Override
@@ -40,7 +40,7 @@ public class TestDNInfoController {
         }
     };
 
-    /*--- SIM 1 fileds ---*/
+    //*--- SIM 1 fields ---*
     // Sim 1: simulate hostname not found in local database, always returns null.
     DomainRepository stubRepo1 = new DomainRepository() {
         @Override

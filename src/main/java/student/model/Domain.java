@@ -14,6 +14,7 @@ package student.model;
 public record Domain(String hostname, String ip, String city, String region,
                      String country, String postal, double latitude,
                      double longitude) {
+    /** Constructor throws errors if invalid args are passed.*/
     public Domain {
         if (hostname == null || hostname.isBlank()) {
             throw new IllegalArgumentException("Hostname cannot be null or empty");

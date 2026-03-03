@@ -5,8 +5,8 @@ package student.model;
  */
 public class DomainNotFoundException extends Exception {
     /**
-     * Constructor for DomainNotFoundException
-     * @param hostname
+     * Constructor for DomainNotFoundException.
+     * @param hostname the hostname being searched for.
      */
     public DomainNotFoundException(String hostname) {
         super("Domain not found: " + hostname);

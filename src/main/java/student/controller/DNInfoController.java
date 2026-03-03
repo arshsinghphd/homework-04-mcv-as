@@ -8,7 +8,7 @@ import java.io.PrintStream;
  * Handles the logic of looking up a domain and displaying it.
  */
 public class DNInfoController {
-    /** Stores Domain information in the local XML file */
+    /** Stores Domain information in the local XML file. */
     private final DomainRepository repo;
     /** The DomainLookupService object that will look-up information if corresponding Domain is not in repo.*/
     private final DomainLookupService lookupService;
@@ -35,7 +35,6 @@ public class DNInfoController {
      * @throws Exception if the domain cannot be found
      */
     public void handle(String hostname, Format format, PrintStream out) throws Exception {
-        /** A domain object. */
         Domain domain;
         domain = repo.findByHostname(hostname); // look up domain in repo
         if (domain == null) {  // if not found

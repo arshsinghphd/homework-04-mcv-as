@@ -2,6 +2,12 @@ package student.view;
 
 /** Parses format and returns a matching function. */
 public class ViewFactory {
+
+    /** The only task of ViewFactory is to return a method based on format.
+     *@param format in which the output is expected.
+     *@returns an IView object.
+     *@throws IllegalArgumentException if an invalid Format string is passed.
+     */
     public static IView getView(Format format) {
         if (format == null) {
             throw new IllegalArgumentException("Format cannot be null");
