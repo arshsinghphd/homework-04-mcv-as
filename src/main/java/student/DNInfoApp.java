@@ -10,7 +10,6 @@ public final class DNInfoApp {
     private DNInfoApp() {
     }
 
-
     /**
     * Prints usage information to System.err.
     */
@@ -27,9 +26,8 @@ public final class DNInfoApp {
      */
     public static void main(String[] args) {
         // take args from user and parse
-        if (args.length < 2 || args.length > 2) {
+        if (args == null || args.length < 2 || args.length > 2) {
             printHelp();  // a program that will write example uses
-            System.exit(1);
             return;
         } 
         String hostname = args[0];
@@ -39,7 +37,6 @@ public final class DNInfoApp {
         } catch (IllegalArgumentException e) {
             System.err.println("Invalid format: " + args[1]);
             printHelp();
-            System.exit(1);
             return;
         }
         // call controller
@@ -50,10 +47,8 @@ public final class DNInfoApp {
             controller.handle(hostname, format, System.out);
         } catch (DomainNotFoundException e) {
             System.err.println("Error: " + e.getMessage());
-            System.exit(1);
         } catch (Exception e) {
             System.err.println("Unexpected error: " + e.getMessage());
-            System.exit(1);
         }
     }
 
