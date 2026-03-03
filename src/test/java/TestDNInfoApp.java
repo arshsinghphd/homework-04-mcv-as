@@ -1,5 +1,4 @@
-package student;
-
+import student.*;
 import java.io.*;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -45,7 +44,7 @@ class TestDNInfoApp {
         DNInfoApp.main(new String[]{"www.github.com", "csv"});
         String output = outContent.toString();
         String[] lines = output.split("\\n");
-        assertEquals(lines[1], "www.github.com,140.82.112.3,San Francisco,California,US,94110,37.7509,-122.4153");
+        assertEquals("www.github.com,140.82.112.3,San Francisco,California,US,94110,37.7509,-122.4153", lines[1]);
     }
 
     @Test

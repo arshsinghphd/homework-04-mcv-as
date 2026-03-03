@@ -25,7 +25,7 @@ public final class DNInfoApp {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // take args from user and parse
+        // take args from user and validate
         if (args == null || args.length < 2 || args.length > 2) {
             printHelp();  // a program that will write example uses
             return;
