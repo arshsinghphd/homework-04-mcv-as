@@ -5,7 +5,7 @@ public class ViewFactory {
 
     /** The only task of ViewFactory is to return a method based on format.
      *@param format in which the output is expected.
-     *@returns an IView object.
+     *@return an IView object.
      *@throws IllegalArgumentException if an invalid Format string is passed.
      */
     public static IView getView(Format format) {

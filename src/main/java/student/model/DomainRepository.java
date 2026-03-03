@@ -13,22 +13,22 @@ public class DomainRepository {
     /** Stores the string path to the local XML file. */
     private static final String XML_FILE = "data/hostrecords.xml";
 
-    /** Stores an xml mapper */
+    /** Stores an xml mapper. */
     private final XmlMapper mapper = new XmlMapper();
 
-    /** Empty constructor to prevent instantiation */
+    /** Empty constructor to prevent instantiation. */
     public DomainRepository() {
     }
 
-    /** Record DomainList stores a list of Domain objected created by reading the XML file row by row. */
+    /** Record DomainList stores a list of Domain objected created by reading the XML file row by row.
+     * @param domains a list of Domain objects.
+     */
     @JacksonXmlRootElement(localName = "domainList")
     record DomainList(
-        //decorator parameter. says we do not have wrapper
-        @JacksonXmlElementWrapper(useWrapping = false)  
-        // decorator parameter. says each item in the list will map to <domain>. 
-        // tag in the XML
-        @JacksonXmlProperty(localName = "domain")  // following the example xml
-
+        @JacksonXmlElementWrapper(useWrapping = false)  // Decorator parameter: says we do not have wrapper
+        @JacksonXmlProperty(localName = "domain")       // Decorator parameter:
+                                                        //     says each item in the list will map to <domain>
+                                                        //     tag in the XML, following the style in example xml.
         List<Domain> domains) {
         }
 
