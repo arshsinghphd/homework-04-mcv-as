@@ -7,22 +7,17 @@ import static org.junit.jupiter.api.Assertions.*;
 class TestDNInfoApp {
 
     private final PrintStream originalOut = System.out;
-    private final PrintStream originalErr = System.err;
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-    private final ByteArrayOutputStream errContent = new ByteArrayOutputStream();
 
     @BeforeEach
     void setUpStream() {
         System.setOut(new PrintStream(outContent));
-        System.setErr(new PrintStream(errContent));
     }
 
     @AfterEach
     void restoreStream() {
         System.setOut(originalOut);
-        System.setErr(originalErr);
         outContent.reset();
-        errContent.reset();
     }
 
     @Test
@@ -56,8 +51,7 @@ class TestDNInfoApp {
     @Test
     void testPrintsExpectedHelpMessage() {
         DNInfoApp.main(new String[]{});
-        String errors = errContent.toString();
-        originalErr.println(errors);
+        String errors = outContent.toString();
         String[] lines = errors.split("\\n");
         assertTrue(lines[0].contains("Usage:"));
     }
@@ -65,8 +59,7 @@ class TestDNInfoApp {
     @Test
     void testUnxpectedFormat() {
         DNInfoApp.main(new String[]{"www.github.com", "yml"});
-        String errors = errContent.toString();
-        originalErr.println(errors);
+        String errors = outContent.toString();
         String[] lines = errors.split("\\n");
         assertTrue(lines[0].contains("Invalid"));
     }

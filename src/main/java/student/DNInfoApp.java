@@ -14,8 +14,8 @@ public final class DNInfoApp {
     * Prints usage information to System.err.
     */
     private static void printHelp() {
-        System.err.println("Usage: DNInfoApp <hostname> <pretty|xml|json|csv>");
-        System.err.println("Example: DNInfoApp www.github.com pretty");
+        System.out.println("Usage: DNInfoApp <hostname> <pretty|xml|json|csv>");
+        System.out.println("Example: DNInfoApp www.github.com pretty");
     }
 
 
@@ -35,7 +35,7 @@ public final class DNInfoApp {
         try {
             format = Format.valueOf(args[1].toUpperCase());
         } catch (IllegalArgumentException e) {
-            System.err.println("Invalid format: " + args[1]);
+            System.out.println("Invalid format: " + args[1]);
             printHelp();
             return;
         }
@@ -46,9 +46,9 @@ public final class DNInfoApp {
             DNInfoController controller = new DNInfoController(repo, lookupService);
             controller.handle(hostname, format, System.out);
         } catch (DomainNotFoundException e) {
-            System.err.println("Error: " + e.getMessage());
+            System.out.println("Error: " + e.getMessage());
         } catch (Exception e) {
-            System.err.println("Unexpected error: " + e.getMessage());
+            System.out.println("Unexpected error: " + e.getMessage());
         }
     }
 
