@@ -128,9 +128,10 @@ classDiagram
         - printHelp() void
     }
 
-    namespace CONTROLLER {
+namespace CONTROLLER {
         class DNInfoController {
             + DNInfoController(DomainRepository, DomainLookupService)
+            + handleAll(Format, PrintStream) void
             + handle(String, Format, PrintStream) void
         }
     }
@@ -171,35 +172,46 @@ classDiagram
     }
     
     namespace VIEW {
-        class CSVView {
-            + CSVView()
-            + render(Domain, PrintStream) void
-        }
+        
         class Format {
             <<enumeration>>
             + Format()
             + valueOf(String) Format
             + values() Format[]
         }
+
         class IView {
             <<Interface>>
             + render(Domain, PrintStream) void
+            + renderAll(List~Domain~, PrintStream) void
         }
-        class JSONView {
-            + JSONView()
-            + render(Domain, PrintStream) void
-        }
-        class PrettyView {
-            + PrettyView()
-            + render(Domain, PrintStream) void
-        }
+        
         class ViewFactory {
             - ViewFactory()
             + getView(Format) IView
         }
+        
+        class PrettyView {
+            + PrettyView()
+            + render(Domain, PrintStream) void
+            + renderAll(List~Domain~, PrintStream) void
+        }
+        
+        class CSVView {
+            + CSVView()
+            + render(Domain, PrintStream) void
+            + renderAll(List~Domain~, PrintStream) void
+        }
+        class JSONView {
+            + JSONView()
+            + render(Domain, PrintStream) void
+            + renderAll(List~Domain~, PrintStream) void
+        }
+        
         class XMLView {
             + XMLView()
             + render(Domain, PrintStream) void
+            + renderAll(List~Domain~, PrintStream) void
         }
     }
 
