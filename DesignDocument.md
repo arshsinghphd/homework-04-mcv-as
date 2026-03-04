@@ -235,20 +235,16 @@ classDiagram
 
 Take time to reflect on how your design has changed. Write in *prose* (i.e. do not bullet point your answers - it matters in how our brain processes the information). Make sure to include what were some major changes, and why you made them. What did you learn from this process? What would you do differently next time? What was the most challenging part of this process? For most students, it will be a paragraph or two. 
 
-Instead of trying to use the given files, I build all the classes from ground up deliberately starting with Junit tests. It was difficult and I often reverted to old habit of coding first writing test later, but I did okay for most classes. I started with the model: Domain and DomainRepository and used that to write IView. Then the various views. And then the factory to assign these. 
+Instead of trying to use the given files, I build all the classes from ground up deliberately starting with Junit tests. It was difficult and I often reverted to old habit of coding first writing test later, but I did okay for most classes. I started with the model: Domain and DomainRepository and used that to write IView. Then the various views. And then the factory to assign these. Then I expanded to include LookUp Services. Then I added Controller. Then finally I added DNIInfoApp.
 
-Then I expanded to include LookUp Services.
-
-Then I added Controller.
-
-Then finally I added DNIInfoApp.
-
-As it has been the case in previous assignments, I did lose some expected details on the way, especially the way DNInfoApp is expected to work. I did not account for -o, -h and --data in the first submission.
+As it has been the case in previous assignments, I did lose sight of the expectations from the App on the way, especially all the argument DNInfoApp expects. I did not account for -o, -h and --data in the first round.
 
 I also did not have the file structure right - namely student package layer was missing.
 
-After submitting and passing a few tests I realized I am not handling all and null as all at all. So I had to write many methods to do that - handleall and renderall methods. Then I found out that each domain has to be enclosed in domainlist in XML and [ ] in JSON. This could have been avoided if I spent more time looking at the output and outputfiles of the sample_working.
+After submitting and passing a few tests I realized I am not handling 'all' and not handlig missing hostname as 'all'. I had to rewrite the parsing loop in DNInfoApp and write new methods to do that - `handleAll` in controller and `renderall` methods in IView. 
 
-Overall I felt much more in control in this assignment. The few mismatches of the expectation at the end were very easy to fix since I know all the parts of this code and built them one by one test first in my personal folder.
+Then in a much later submission I realized that each domain has to be enclosed in domainlist in XML and [ ] in JSON. This could have been avoided if I spent more time looking at the output and output files of the sample_working.
 
-I did add the tests for renderall and handleall as afterthought, but after 15 submissions I was not feeling at my prime. I did manage to submit assignment before midnight! 
+Overall I felt much more in control in this assignment. The few errors departures from expectation were easy to fix since I knew all the parts of this code.
+
+I did add the tests for `renderAll` and `handleAll` as afterthought, but after 15+ submissions I was not feeling at my prime. I did manage to submit assignment before midnight! 
