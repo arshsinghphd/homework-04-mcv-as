@@ -1,10 +1,12 @@
 package student;
+
 import student.controller.*;
 import student.model.*;
 import student.view.*;
+
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
-
+import java.util.List;
 
 /** This class is the main entry point to the app. */
 public final class DNInfoApp {
@@ -119,7 +121,22 @@ public final class DNInfoApp {
             DomainRepository repo = new DomainRepository(dataPath);
             DomainLookupService lookupService = new DomainLookupService();
             DNInfoController controller = new DNInfoController(repo, lookupService);
+            if (hostname.equalsIgnoreCase("all")) {
+                // print all entries from the data file
+                List<String> allHostnames = repo.getAllHostnames();
+                if (allHostnames.isEmpty()) {
+                    System.out.println("No entries found in data file.");
+                    return;
+                }
+                for (String host : allHostnames) {
+                    controller.handle(host, format, out);
+                }
+            } else {
+                controller.handle(hostname, format, out);
+            }
+
             controller.handle(hostname, format, out);
+
         } catch (DomainNotFoundException e) {
             System.out.println("Error: " + e.getMessage());
         } catch (Exception e) {
