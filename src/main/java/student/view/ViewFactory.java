@@ -1,7 +1,7 @@
 package student.view;
 
 /** Parses format and returns a matching function. */
-public class ViewFactory {
+public final class ViewFactory {
 
     private ViewFactory() {
         // to prevent instantiation
