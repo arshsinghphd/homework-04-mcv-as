@@ -252,7 +252,11 @@ namespace CONTROLLER {
 
 Take time to reflect on how your design has changed. Write in *prose* (i.e. do not bullet point your answers - it matters in how our brain processes the information). Make sure to include what were some major changes, and why you made them. What did you learn from this process? What would you do differently next time? What was the most challenging part of this process? For most students, it will be a paragraph or two. 
 
-Instead of trying to use the given files, I build all the classes from ground up deliberately starting with Junit tests. It was difficult and I often reverted to old habit of coding first writing test later, but I did okay for most classes. I started with the model: Domain and DomainRepository and used that to write IView. Then the various views. And then the factory to assign these. Then I expanded to include LookUp Services. Then I added Controller. Then finally I added DNIInfoApp.
+---
+
+Instead of trying to use the given files, I build all the classes from ground up deliberately starting with Junit tests. It was difficult and I often reverted to old habit of coding first writing test later, but I did test first for most classes and methods. 
+
+I started with the model: Domain and DomainRepository and used that to write IView. Then the various views. And then the factory to assign these. Then I expanded to include LookUp Services. Then I added Controller. Then finally I added DNIInfoApp.
 
 As it has been the case in previous assignments, I did lose sight of the expectations from the App on the way, especially all the argument DNInfoApp expects. I did not account for -o, -h and --data in the first round.
 
