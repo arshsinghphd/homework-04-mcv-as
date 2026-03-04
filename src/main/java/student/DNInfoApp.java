@@ -98,7 +98,18 @@ public final class DNInfoApp {
                         printHelp();
                         return;
                     }
-                    hostname = args[i];
+                    if (hostname == null) {
+                        hostname = args[i]; // first positional arg is hostname
+                    } else {
+                        // second positional arg is format
+                        try {
+                            format = Format.valueOf(args[i].toUpperCase());
+                        } catch (IllegalArgumentException e) {
+                            System.out.println("Invalid format: " + args[i]);
+                            printHelp();
+                            return;
+                        }
+                    }
                     break;
             }
         }
