@@ -8,7 +8,7 @@ import java.util.List;
 public class JSONView implements IView {
 
     /**
-     * Renders a single domain as a compact JSON object.
+     * Renders a single domain as a JSON array containing one compact JSON object.
      *
      * @param domain the Domain object to render.
      * @param out the PrintStream to render the domain information on.
