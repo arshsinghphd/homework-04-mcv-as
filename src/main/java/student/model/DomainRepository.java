@@ -9,7 +9,11 @@ import java.io.File;
 import java.util.List;
 import java.util.ArrayList;
 
-/** Class DomainRepository reads and writes to a local XML file. */
+/**
+ * Repository for Domain objects based on a local XML file.
+ * Supports looking up domains by hostname, retrieving all hostnames,
+ * and saving new domains. Defaults to DEFAULT_XML_FILE if no path is provided.
+ */
 public class DomainRepository {
 
     /** Stores the string path to the local XML file. */
@@ -18,7 +22,7 @@ public class DomainRepository {
     /** Stores the path to the default local XML file. */
     private static final String DEFAULT_XML_FILE = "data/hostrecords.xml";
 
-    /** Stores an xml mapper. */
+    /** XmlMapper used to serialize and deserialize Domain objects to and from XML. */
     private final XmlMapper mapper = new XmlMapper();
 
     /**
@@ -80,6 +84,7 @@ public class DomainRepository {
      * Reader: looks for domain information by hostname and returns it.
      * @param hostname the hostname to search for
      * @return the Domain if found, null if not or if there was error in the reading XML
+     * @throws Exception if there is an error reading the XML file
      */
     public Domain findByHostname(String hostname) throws Exception {
         DomainList domainList = loadDomainList();
@@ -115,13 +120,13 @@ public class DomainRepository {
      * Writer: adds a domain to local database file if it does not already exist.
      * Does not update existing information.
      * @param domain a new domain to be added to the local database file.
-     * @throws Exception if there is an error writing to the XML file.
+     * @throws Exception if the file does not exist or there is an error writing to it.
      */
     public void save(Domain domain) throws Exception {
         File file = new File(xmlFile);
 
         if (!file.exists()) {
-            return;   // return void if file not found
+            throw new Exception("Data file not found: " + xmlFile);
         }
 
         try {
