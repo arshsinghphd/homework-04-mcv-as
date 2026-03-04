@@ -56,8 +56,8 @@ public final class DNInfoApp {
         // parse arguments -
         // makes no assumption about the order in which pairs are passed:
         //      -f format, -o outputPath, --data dataPath
-        // if hostname is found looks for format even without -f
-        // all is stored as a hostname and handled in controller.
+        // if hostname is found, looks for format even without -f
+        // 'all' is stored as a hostname and handled in controller.
         for (int i = 0; i < args.length; i++) {
             switch (args[i]) {
                 case "-h":
@@ -138,7 +138,7 @@ public final class DNInfoApp {
             DomainLookupService lookupService = new DomainLookupService();
             DNInfoController controller = new DNInfoController(repo, lookupService);
 
-            if (hostname == null || hostname.equalsIgnoreCase("all")) {
+            if (hostname == null || hostname.equalsIgnoreCase("all")) {  // handle 'all'
                 controller.handleAll(format, out);
             } else {
                 controller.handle(hostname, format, out);
@@ -150,7 +150,7 @@ public final class DNInfoApp {
             System.out.println("Unexpected error: " + e.getMessage());
         } finally {
             if (outputPath != null) {
-                out.close();
+                out.close();        // if we were writing to a file, close to save.
             }
         }
     }
