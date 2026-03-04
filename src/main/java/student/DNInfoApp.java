@@ -6,7 +6,6 @@ import student.view.*;
 
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
-import java.util.List;
 
 /** This class is the main entry point to the app. */
 public final class DNInfoApp {
@@ -16,8 +15,8 @@ public final class DNInfoApp {
     }
 
     /**
-    * Prints usage information to System.out.
-    */
+     * Prints usage information to System.out.
+     */
     private static void printHelp() {
         System.out.println("DNInfoApp [hostname|all] [-f json|xml|csv|pretty] [-o file path] [-h | --help] "
                 + "[--data filepath]");
@@ -30,10 +29,9 @@ public final class DNInfoApp {
                 + " defaults to the hostrecords.xml file.");
     }
 
-
     /**
      * Main entry point for the program.
-     * 
+     *
      * @param args the command line arguments
      */
     public static void main(String[] args) {
@@ -49,13 +47,13 @@ public final class DNInfoApp {
         // Stores the format being requested.
         Format format = Format.PRETTY; // default format
 
-        //Stores the outputPath of the file to be written, Defaults to printing on the terminal.
+        // Stores the outputPath of the file to be written, defaults to printing on the terminal.
         String outputPath = null;
 
-        // Stores the Path of the local repo, defaults to hostrecords.xml.
+        // Stores the path of the local repo, defaults to hostrecords.xml.
         String dataPath = null;
 
-        //parse arguments
+        // parse arguments
         for (int i = 0; i < args.length; i++) {
             switch (args[i]) {
                 case "-h":
@@ -119,14 +117,14 @@ public final class DNInfoApp {
 
         // set up output stream
         PrintStream out;
-        if (outputPath != null) {  // printing on outputPath file
+        if (outputPath != null) {
             try {
                 out = new PrintStream(outputPath);
             } catch (FileNotFoundException e) {
                 System.out.println("Error: Could not open output file: " + outputPath);
                 return;
             }
-        } else {  // if outputPath is null printing on System.out by default
+        } else {
             out = System.out;
         }
 
@@ -135,15 +133,9 @@ public final class DNInfoApp {
             DomainRepository repo = new DomainRepository(dataPath);
             DomainLookupService lookupService = new DomainLookupService();
             DNInfoController controller = new DNInfoController(repo, lookupService);
+
             if (hostname == null || hostname.equalsIgnoreCase("all")) {
-                List<String> allHostnames = repo.getAllHostnames();
-                if (allHostnames.isEmpty()) {
-                    System.out.println("No entries found in data file.");
-                    return;
-                }
-                for (String host : allHostnames) {
-                    controller.handle(host, format, out);
-                }
+                controller.handleAll(format, out);
             } else {
                 controller.handle(hostname, format, out);
             }
@@ -152,10 +144,8 @@ public final class DNInfoApp {
             System.out.println("Error: " + e.getMessage());
         } catch (Exception e) {
             System.out.println("Unexpected error: " + e.getMessage());
-        // using finally for tasks after try and catch
         } finally {
             if (outputPath != null) {
-                // if writing files, close PrintStream to save the file
                 out.close();
             }
         }
