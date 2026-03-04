@@ -116,7 +116,7 @@ Go through your completed code, and update your class diagram to reflect the fin
 
 ```mermaid
 classDiagram
-    direction BT
+    direction TB
     class DNInfoApp {
         - DNInfoApp()
         + main(String[]) void
@@ -197,6 +197,21 @@ classDiagram
             + render(Domain, PrintStream) void
         }
     }
+
+    DNInfoApp --> DomainRepository : uses
+    DNInfoApp --> DomainLookupService : uses
+    DNInfoApp --> DNInfoController : uses
+
+    DNInfoController --> DomainRepository : uses
+    DNInfoController --> DomainLookupService : uses
+    DNInfoController --> ViewFactory : uses
+    
+    DomainLookupService  ..>  Domain : uses
+    DomainLookupService  ..>  DomainNotFoundException : uses
+    DomainList -->  Domain: uses
+    DomainRepository  -->  DomainList : uses
+    DomainRepository  ..>  Domain : uses
+    DomainRepository  ..>  DomainList : uses
     
     CSVView  ..>  IView : implements
     JSONView  ..>  IView : implements
@@ -209,21 +224,6 @@ classDiagram
     ViewFactory  ..>  PrettyView : uses
     ViewFactory  ..>  XMLView : uses
     IView --> Domain: uses
-    
-    DomainLookupService  ..>  Domain : uses
-    DomainLookupService  ..>  DomainNotFoundException : uses
-
-    DomainList -->  Domain: uses
-    DomainRepository  -->  DomainList : uses
-    DomainRepository  ..>  Domain : uses
-    DomainRepository  ..>  DomainList : uses
-    
-    DNInfoController --> DomainRepository : uses
-    DNInfoController --> DomainLookupService : uses
-    
-    DNInfoApp --> DomainRepository : uses
-    DNInfoApp --> DomainLookupService : uses
-    DNInfoApp --> DNInfoController : uses
 ```
 
 ## (FINAL DESIGN): Reflection/Retrospective
