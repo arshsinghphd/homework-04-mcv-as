@@ -53,7 +53,11 @@ public final class DNInfoApp {
         // Stores the path of the local repo, defaults to hostrecords.xml.
         String dataPath = null;
 
-        // parse arguments
+        // parse arguments -
+        // makes no assumption about the order in which pairs are passed:
+        //      -f format, -o outputPath, --data dataPath
+        // if hostname is found looks for format even without -f
+        // all is stored as a hostname and handled in controller.
         for (int i = 0; i < args.length; i++) {
             switch (args[i]) {
                 case "-h":
@@ -67,7 +71,7 @@ public final class DNInfoApp {
                         return;
                     }
                     try {
-                        format = Format.valueOf(args[++i].toUpperCase());
+                        format = Format.valueOf(args[++i].toUpperCase());  // assign format if a valid string
                     } catch (IllegalArgumentException e) {
                         System.out.println("Invalid format: " + args[i]);
                         printHelp();
@@ -81,7 +85,7 @@ public final class DNInfoApp {
                         return;
                     }
                     String oArg = args[++i];
-                    if (!oArg.equalsIgnoreCase("stdout")) {
+                    if (!oArg.equalsIgnoreCase("stdout")) {  // stdout is not a path, but is passed as such
                         outputPath = oArg;
                     }
                     break;
@@ -95,7 +99,7 @@ public final class DNInfoApp {
                     break;
                 default:
                     if (args[i].startsWith("-")) {
-                        System.out.println("Unknown option: " + args[i]);
+                        System.out.println("Unknown option: " + args[i]);  // not the cases above
                         printHelp();
                         return;
                     }
