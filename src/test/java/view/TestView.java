@@ -90,10 +90,9 @@ class TestView {
         IView pv = ViewFactory.getView(Format.JSON);  // static method getView
         pv.render(simDomain, testOut);
         String output = outContent.toString();
-        String[] lines = output.split("\\n");
-        assertEquals("\"hostname\": \"www.github.com\",",
-                    lines[1].strip());
-        assertEquals("\"longitude\": -122.4153",
-                    lines[8].strip());
+        String[] lines = output.split(",");
+        testOut.println(lines);
+        assertEquals("{\"hostname\":\"www.github.com\"", lines[0].strip());
+        assertEquals("\"longitude\":-122.4153}", lines[7].strip());
     }
 }

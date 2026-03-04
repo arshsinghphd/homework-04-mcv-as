@@ -36,8 +36,7 @@ class TestDNInfoApp {
     void testPrintsHelpMessage() {
         DNInfoApp.main(new String[]{});
         String errors = outContent.toString();
-        String[] lines = errors.split("\\n");
-        assertTrue(lines[0].contains("Usage:"));
+        assertTrue(errors.contains("DNInfoApp [hostname|all]"));
     }
 
     /** Tests the app returns as expected: with unexpected format. */
@@ -123,7 +122,7 @@ class TestDNInfoApp {
         DNInfoApp.main(new String[]{"www.github.com", "-f", "json"});
         String output = outContent.toString();
         String[] lines = output.split("\\n");
-        assertTrue(lines[1].contains("www.github.com"));
+        assertTrue(lines[0].contains("www.github.com"));
     }
 
     // Testing output files
@@ -157,7 +156,7 @@ class TestDNInfoApp {
         assertTrue(Files.exists(outputFile), "Output file should be created");
         String content = Files.readString(outputFile);
         assertFalse(content.isBlank(), "Output file should not be empty");
-        assertTrue(content.contains("\"hostname\": \"www.github.com\""));
+        assertTrue(content.contains("\"hostname\":\"www.github.com\""));
     }
 
     @Test
