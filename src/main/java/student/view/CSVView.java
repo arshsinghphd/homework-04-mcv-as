@@ -7,7 +7,7 @@ import java.util.List;
 /** Renders Domain information in CSV format. */
 public class CSVView implements IView {
 
-    /** The CSV header row. */
+    /** The CSV header row defining the column order for all CSV output. */
     private static final String HEADER = "hostname,ip,city,region,country,postal,latitude,longitude";
 
     /**
