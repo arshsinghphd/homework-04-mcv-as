@@ -8,7 +8,7 @@ import java.util.List;
 public class XMLView implements IView {
 
     /**
-     * Renders a single domain as an XML domain element.
+     * Renders a single domain as an XML domain element wrapped in a domainList root element.
      *
      * @param domain the Domain object to render.
      * @param out the PrintStream to render the domain information on.
