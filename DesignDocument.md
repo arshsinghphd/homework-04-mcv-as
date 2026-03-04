@@ -105,8 +105,8 @@ Write a test (in english) that you can picture for the class diagram you have cr
 > 5. Repeat steps 2-4 until you have all the tests passing/fully built program
 
 You should feel free to number your brainstorm. 
-1. Test 1..
-2. Test 2..
+1. 
+2. 
 
 ## (FINAL DESIGN): Class Diagram
 
@@ -115,9 +115,117 @@ Go through your completed code, and update your class diagram to reflect the fin
 > [!WARNING]
 > If you resubmit your assignment for manual grading, this is a section that often needs updating. You should double check with every resubmit to make sure it is up to date.
 
+```mermaid
+classDiagram
+    direction BT
+    class DNInfoApp {
+        - DNInfoApp()
+        + main(String[]) void
+        - printHelp() void
+    }
 
+    namespace controller {
+        class DNInfoController {
+            + DNInfoController(DomainRepository, DomainLookupService)
+            + handle(String, Format, PrintStream) void
+        }
+    }
+    
+    namespace model {
+        class Domain {
+            + Domain(String, String, String, String, String, String, double, double)
+            + hostname() String
+            + region() String
+            + latitude() double
+            + longitude() double
+            + country() String
+            + city() String
+            + postal() String
+            + ip() String
+        }
+        class DomainList {
+            ~ DomainList(List~Domain~)
+            + domains() List~Domain~
+        }
+        class DomainLookupService {
+            + DomainLookupService()
+            + lookup(String) Domain
+        }
+        class DomainNotFoundException {
+            + DomainNotFoundException(String)
+        }
+        class DomainRepository {
+            + DomainRepository(String)
+            + DomainRepository()
+            - String xmlFile
+            + save(Domain) void
+            + findByHostname(String) Domain
+            - loadDomainList() DomainList?
+            List~String~ allHostnames
+            String xmlFile
+        }
+    }
+    
+    namespace view {
+        class CSVView {
+            + CSVView()
+            + render(Domain, PrintStream) void
+        }
+        class Format {
+            <<enumeration>>
+            + Format()
+            + valueOf(String) Format
+            + values() Format[]
+        }
+        class IView {
+            <<Interface>>
+            + render(Domain, PrintStream) void
+        }
+        class JSONView {
+            + JSONView()
+            + render(Domain, PrintStream) void
+        }
+        class PrettyView {
+            + PrettyView()
+            + render(Domain, PrintStream) void
+        }
+        class ViewFactory {
+            - ViewFactory()
+            + getView(Format) IView
+        }
+        class XMLView {
+            + XMLView()
+            + render(Domain, PrintStream) void
+        }
+    }
+    
+    CSVView  ..>  IView : implements
+    JSONView  ..>  IView : implements
+    PrettyView  ..>  IView: implements
+    XMLView  ..>  IView: implements
+    ViewFactory  ..>  CSVView : uses
+    ViewFactory  ..>  Format : uses
+    ViewFactory  ..>  IView : uses
+    ViewFactory  ..>  JSONView : uses
+    ViewFactory  ..>  PrettyView : uses
+    ViewFactory  ..>  XMLView : uses
+    IView --> Domain: uses
+    
+    DomainLookupService  ..>  Domain : uses
+    DomainLookupService  ..>  DomainNotFoundException : uses
 
-
+    DomainList -->  Domain: uses
+    DomainRepository  -->  DomainList : uses
+    DomainRepository  ..>  Domain : uses
+    DomainRepository  ..>  DomainList : uses
+    
+    DNInfoController --> DomainRepository : uses
+    DNInfoController --> DomainLookupService : uses
+    
+    DNInfoApp --> DomainRepository : uses
+    DNInfoApp --> DomainLookupService : uses
+    DNInfoApp --> DNInfoController : uses
+```
 
 ## (FINAL DESIGN): Reflection/Retrospective
 
@@ -125,3 +233,11 @@ Go through your completed code, and update your class diagram to reflect the fin
 > The value of reflective writing has been highly researched and documented within computer science, from learning new information to showing higher salaries in the workplace. For this next part, we encourage you to take time, and truly focus on your retrospective.
 
 Take time to reflect on how your design has changed. Write in *prose* (i.e. do not bullet point your answers - it matters in how our brain processes the information). Make sure to include what were some major changes, and why you made them. What did you learn from this process? What would you do differently next time? What was the most challenging part of this process? For most students, it will be a paragraph or two. 
+
+Instead of trying to use the given files, I build all the classes from ground up. 
+
+As it has been the case in previous assignments, I did lose some expected details on the way, especially the way DNInfoApp is expected to work. I did not account for -o, -h and --data in the first submission.
+
+I also did not have the file structure right - namely student package layer was missing.
+
+Overall I felt much more in control in this assignment. The few mismatches of the expectation at the end were very easy to fix since I know all the parts of this code and built them one by one test first in my personal folder. 
