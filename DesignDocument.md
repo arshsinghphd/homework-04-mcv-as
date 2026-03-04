@@ -105,7 +105,12 @@ Write a test (in english) that you can picture for the class diagram you have cr
 > 5. Repeat steps 2-4 until you have all the tests passing/fully built program
 
 You should feel free to number your brainstorm.
-1. 
+1. Create Domain class that should store information from an XML file.
+2. It should handle null by throwing exceptions
+3. Create many view classes (XML, CSV. JSON) to write out domain in prescribed format
+4. Write an enum Format to restrict types of format
+5. Write a factory that looks at format, matches it to Format and returns an object of the proper view type
+6. Write a Domain Lookup class
 
 ## (FINAL DESIGN): Class Diagram
 
@@ -241,10 +246,8 @@ As it has been the case in previous assignments, I did lose sight of the expecta
 
 I also did not have the file structure right - namely student package layer was missing.
 
-After submitting and passing a few tests I realized I am not handling 'all' and not handlig missing hostname as 'all'. I had to rewrite the parsing loop in DNInfoApp and write new methods to do that - `handleAll` in controller and `renderAll` methods in IView. 
+After submitting and passing a few tests I realized I am not handling 'all' and not handling missing hostname as 'all'. I had to rewrite the parsing loop in DNInfoApp and write new methods to do that - `handleAll` in controller and `renderAll` methods in IView. 
 
 Then in a much later submission I realized that each domain has to be enclosed in domainlist in XML and [ ] in JSON. This could have been avoided if I spent more time looking at the output and output files of the sample_working.
 
-Overall I felt much more in control in this assignment. The few errors departures from expectation were easy to fix since I knew all the parts of this code.
-
-I did add the tests for `renderAll` and `handleAll` as afterthought, but after 15+ submissions I was not feeling at my prime. I did manage to submit assignment before midnight! 
+Overall I felt much more in control in this assignment. The few errors departures from expectation were easy to fix since I knew all the parts of this code. I did add the tests for `renderAll` and `handleAll` as afterthought, but after 15+ submissions I was not feeling at my prime. I did manage to submit assignment before midnight! 
