@@ -10,14 +10,32 @@ import java.util.ArrayList;
 
 /** Class DomainRepository reads and writes to a local XML file. */
 public class DomainRepository {
+
     /** Stores the string path to the local XML file. */
-    private static final String XML_FILE = "data/hostrecords.xml";
+    private String xmlFile;
+
+    /** Stores the path to the default local XML file. */
+    private static final String DEFAULT_XML_FILE = "data/hostrecords.xml";
 
     /** Stores an xml mapper. */
     private final XmlMapper mapper = new XmlMapper();
 
-    /** Empty constructor to prevent instantiation. */
+    public void setXmlFile(String xmlFile) {
+        this.xmlFile = xmlFile;
+    }
+
+    /** Primary constructor. */
+    public DomainRepository(String xmlFile) {
+        if (xmlFile == null || xmlFile.isBlank()) {
+            setXmlFile(DEFAULT_XML_FILE);
+        } else {
+            setXmlFile(xmlFile);
+        }
+    }
+
+    /** Empty args constructor. */
     public DomainRepository() {
+        this(DEFAULT_XML_FILE);
     }
 
     /** Record DomainList stores a list of Domain objected created by reading the XML file row by row.
@@ -26,9 +44,9 @@ public class DomainRepository {
     @JacksonXmlRootElement(localName = "domainList")
     record DomainList(
         @JacksonXmlElementWrapper(useWrapping = false)  // Decorator parameter: says we do not have wrapper
-        @JacksonXmlProperty(localName = "domain")       // Decorator parameter:
-                                                        //     says each item in the list will map to <domain>
-                                                        //     tag in the XML, following the style in example xml.
+        @JacksonXmlProperty(localName = "domain")       /* Decorator parameter: says each item in the list will map to
+                                                            <domain> tag in the XML, following the style in the
+                                                            sample_working. */
         List<Domain> domains) {
         }
 
@@ -38,7 +56,7 @@ public class DomainRepository {
      * @return the Domain if found, null if not or if there was error in the reading XML
      */
     public Domain findByHostname(String hostname) throws Exception {
-        File file = new File(XML_FILE);
+        File file = new File(xmlFile);
 
         if (!file.exists()) {
             return null;   // return null if file not found
@@ -67,11 +85,11 @@ public class DomainRepository {
     /**
      * Writer: adds a domain to local database file if it does not already exist.
      * Does not update existing information.
-     * @param domain a new domain to be added to the local database file
-     * @throws Exception
+     * @param domain a new domain to be added to the local database file.
+     * @throws Exception if there is an error writing to the XML file.
      */
     public void save(Domain domain) throws Exception {
-        File file = new File(XML_FILE);
+        File file = new File(xmlFile);
 
         if (!file.exists()) {
             return;   // return void if file not found
