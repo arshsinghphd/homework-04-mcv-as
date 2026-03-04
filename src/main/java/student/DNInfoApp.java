@@ -82,7 +82,10 @@ public final class DNInfoApp {
                         printHelp();
                         return;
                     }
-                    outputPath = args[++i];
+                    String oArg = args[++i];
+                    if (!oArg.equalsIgnoreCase("stdout")) {
+                        outputPath = oArg;
+                    }
                     break;
                 case "--data":
                     if (i + 1 >= args.length) {
@@ -114,13 +117,6 @@ public final class DNInfoApp {
             }
         }
 
-        // validate that hostname was provided
-        if (hostname == null) {
-            System.out.println("Error: hostname or 'all' is required.");
-            printHelp();
-            return;
-        }
-
         // set up output stream
         PrintStream out;
         if (outputPath != null) {  // printing on outputPath file
@@ -139,8 +135,7 @@ public final class DNInfoApp {
             DomainRepository repo = new DomainRepository(dataPath);
             DomainLookupService lookupService = new DomainLookupService();
             DNInfoController controller = new DNInfoController(repo, lookupService);
-            if (hostname.equalsIgnoreCase("all")) {
-                // print all entries from the data file
+            if (hostname == null || hostname.equalsIgnoreCase("all")) {
                 List<String> allHostnames = repo.getAllHostnames();
                 if (allHostnames.isEmpty()) {
                     System.out.println("No entries found in data file.");
