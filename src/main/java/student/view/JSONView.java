@@ -15,7 +15,9 @@ public class JSONView implements IView {
      */
     @Override
     public void render(Domain domain, PrintStream out) {
+        out.print("[");
         out.print(toJson(domain));
+        out.println("]");
     }
 
     /**

@@ -15,7 +15,9 @@ public class XMLView implements IView {
      */
     @Override
     public void render(Domain domain, PrintStream out) {
+        out.printf("<domainList>%n");
         out.print(toXml(domain));
+        out.printf("</domainList>%n");
     }
 
     /**
