@@ -10,8 +10,9 @@ import java.util.List;
  * Handles the logic of looking up a domain and displaying it.
  */
 public class DNInfoController {
-    /** Stores Domain information in the local XML file. */
+    /** The repository used to store and retrieve Domain information from the local XML file. */
     private final DomainRepository repo;
+
     /** The DomainLookupService object that will look-up information if corresponding Domain is not in repo.*/
     private final DomainLookupService lookupService;
 
@@ -27,14 +28,15 @@ public class DNInfoController {
     }
 
     /**
-     * This is the main task of controller, it will pass user's requests:
-     * hostname and format to the model objects. 
-     * Then It will process the Domain object received using View methods.
-     * 
+     * Looks up a domain by hostname and renders it in the given format.
+     * If the domain is not found in the repository, it is looked up online
+     * and saved to the repository for future use.
+     *
      * @param hostname the hostname to look up
      * @param format the format to display the result in
-     * @param out the PrintStream to use
-     * @throws Exception if the domain cannot be found
+     * @param out the PrintStream to write the output to
+     * @throws DomainNotFoundException if the domain cannot be found locally or online
+     * @throws Exception if there is an error reading or writing the repository
      */
     public void handle(String hostname, Format format, PrintStream out) throws Exception {
         Domain domain;
@@ -56,7 +58,8 @@ public class DNInfoController {
      *
      * @param format the format to display the results in
      * @param out the PrintStream to use
-     * @throws Exception if a domain cannot be found or there is a rendering error
+     * @throws DomainNotFoundException if any domain in the repository cannot be found online
+     * @throws Exception if there is an error reading the repository
      */
     public void handleAll(Format format, PrintStream out) throws Exception {
         List<String> allHostnames = repo.getAllHostnames();
