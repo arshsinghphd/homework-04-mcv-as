@@ -2,6 +2,8 @@ package student.controller;
 import student.model.*;
 import student.view.*;
 import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Controller for DNInfo application.
@@ -46,5 +48,39 @@ public class DNInfoController {
         }
         IView view = ViewFactory.getView(format); // return a view based on format
         view.render(domain, out);  // render the information from domain to out
+    }
+
+    /**
+     * Looks up all hostnames in the repository and renders them together
+     * as a collection in the given format.
+     *
+     * @param format the format to display the results in
+     * @param out the PrintStream to use
+     * @throws Exception if a domain cannot be found or there is a rendering error
+     */
+    public void handleAll(Format format, PrintStream out) throws Exception {
+        List<String> allHostnames = repo.getAllHostnames();
+        if (allHostnames.isEmpty()) {
+            out.println("No entries found in data file.");
+            return;
+        }
+
+        // collect all domains first
+        List<Domain> domains = new ArrayList<>();
+        for (String hostname : allHostnames) {
+            Domain domain = repo.findByHostname(hostname);
+            if (domain == null) {
+                domain = lookupService.lookup(hostname);
+                if (domain == null) {
+                    throw new DomainNotFoundException(hostname);
+                }
+                repo.save(domain);
+            }
+            domains.add(domain);
+        }
+
+        // render them all together
+        IView view = ViewFactory.getView(format);
+        view.renderAll(domains, out);
     }
 }
