@@ -16,11 +16,18 @@ public final class DNInfoApp {
     }
 
     /**
-    * Prints usage information to System.err.
+    * Prints usage information to System.out.
     */
     private static void printHelp() {
-        System.out.println("Usage: DNInfoApp <hostname> <pretty|xml|json|csv>");
-        System.out.println("Example: DNInfoApp www.github.com pretty");
+        System.out.println("DNInfoApp [hostname|all] [-f json|xml|csv|pretty] [-o file path] [-h | --help] " +
+                "[--data filepath]");
+        System.out.println();
+        System.out.println("Looks up the information for a given hostname (url) or displays information for");
+        System.out.println("all domains in the database. Can be output in json, xml, csv, or pretty format.");
+        System.out.println("If -o file is provided, the output will be written to the file instead of stdout.");
+        System.out.println();
+        System.out.println("--data is mainly used in testing to provide a different data file," +
+                " defaults to the hostrecords.xml file.");
     }
 
 
@@ -134,8 +141,6 @@ public final class DNInfoApp {
             } else {
                 controller.handle(hostname, format, out);
             }
-
-            controller.handle(hostname, format, out);
 
         } catch (DomainNotFoundException e) {
             System.out.println("Error: " + e.getMessage());
