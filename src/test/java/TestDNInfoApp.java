@@ -48,7 +48,7 @@ class TestDNInfoApp {
      */
     @Test
     void testUnxpectedFormat() {
-        DNInfoApp.main(new String[]{"www.github.com", "yml"});
+        DNInfoApp.main(new String[]{"www.github.com", "-f", "yml"});
         String errors = outContent.toString();
         String[] lines = errors.split("\\n");
         assertTrue(lines[0].contains("Invalid"));
@@ -59,7 +59,7 @@ class TestDNInfoApp {
      */
     @Test
     void testRunWithProperArgumentsPretty() {
-        assertDoesNotThrow(() -> DNInfoApp.main(new String[]{"www.github.com", "pretty"}));
+        assertDoesNotThrow(() -> DNInfoApp.main(new String[]{"www.github.com", "-f", "pretty"}));
     }
 
     /**
@@ -67,7 +67,7 @@ class TestDNInfoApp {
      */
     @Test
     void testRunWithProperArgumentsXML() {
-        assertDoesNotThrow(() -> DNInfoApp.main(new String[]{"www.github.com", "xml"}));
+        assertDoesNotThrow(() -> DNInfoApp.main(new String[]{"www.github.com", "-f", "xml"}));
     }
 
     /**
@@ -75,7 +75,7 @@ class TestDNInfoApp {
      */
     @Test
     void testRunWithProperArgumentsJSON() {
-        assertDoesNotThrow(() -> DNInfoApp.main(new String[]{"www.github.com", "json"}));
+        assertDoesNotThrow(() -> DNInfoApp.main(new String[]{"www.github.com", "-f", "json"}));
     }
 
     /**
@@ -83,7 +83,7 @@ class TestDNInfoApp {
      */
     @Test
     void testRunWithProperArgumentsCSV() {
-        assertDoesNotThrow(() -> DNInfoApp.main(new String[]{"www.github.com", "csv"}));
+        assertDoesNotThrow(() -> DNInfoApp.main(new String[]{"www.github.com", "-f", "csv"}));
     }
 
     /**
@@ -91,7 +91,7 @@ class TestDNInfoApp {
      */
     @Test
     void testPrintsExpectedPretty() {
-        DNInfoApp.main(new String[]{"www.github.com", "pretty"});
+        DNInfoApp.main(new String[]{"www.github.com"});
         String output = outContent.toString();
         String[] lines = output.split("\\n");
         assertTrue(lines[0].contains("www.github.com"));
@@ -101,19 +101,20 @@ class TestDNInfoApp {
      * Tests the app returns as expected: csv format.
      */
     @Test
-    void testPrintsExpectedCSV() {
-        DNInfoApp.main(new String[]{"www.github.com", "csv"});
+    void testPrintCSV() {
+        DNInfoApp.main(new String[]{"www.github.com", "-f", "csv"});
         String output = outContent.toString();
         String[] lines = output.split("\\n");
-        assertEquals("www.github.com,140.82.112.3,San Francisco,California,US,94110,37.7509,-122.4153", lines[1]);
+        assertEquals("www.github.com,140.82.112.3,San Francisco,California,US,94110,37.7509,-122.4153",
+                    lines[1]);
     }
 
     /**
      * Tests the app returns as expected: xml format.
      */
     @Test
-    void testPrintsExpectedXML() {
-        DNInfoApp.main(new String[]{"www.github.com", "xml"});
+    void testPrintXML() {
+        DNInfoApp.main(new String[]{"www.github.com", "-f", "xml"});
         String output = outContent.toString();
         String[] lines = output.split("\\n");
         assertTrue(lines[1].contains("www.github.com"));
@@ -123,8 +124,8 @@ class TestDNInfoApp {
      * Tests the app returns as expected: json format.
      */
     @Test
-    void testPrintsExpectedJSON() {
-        DNInfoApp.main(new String[]{"www.github.com", "json"});
+    void testPrintJSON() {
+        DNInfoApp.main(new String[]{"www.github.com", "-f", "json"});
         String output = outContent.toString();
         String[] lines = output.split("\\n");
         assertTrue(lines[1].contains("www.github.com"));
