@@ -241,7 +241,7 @@ As it has been the case in previous assignments, I did lose sight of the expecta
 
 I also did not have the file structure right - namely student package layer was missing.
 
-After submitting and passing a few tests I realized I am not handling 'all' and not handlig missing hostname as 'all'. I had to rewrite the parsing loop in DNInfoApp and write new methods to do that - `handleAll` in controller and `renderall` methods in IView. 
+After submitting and passing a few tests I realized I am not handling 'all' and not handlig missing hostname as 'all'. I had to rewrite the parsing loop in DNInfoApp and write new methods to do that - `handleAll` in controller and `renderAll` methods in IView. 
 
 Then in a much later submission I realized that each domain has to be enclosed in domainlist in XML and [ ] in JSON. This could have been avoided if I spent more time looking at the output and output files of the sample_working.
 
