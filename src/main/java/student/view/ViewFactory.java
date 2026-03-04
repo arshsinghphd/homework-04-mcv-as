@@ -3,6 +3,10 @@ package student.view;
 /** Parses format and returns a matching function. */
 public class ViewFactory {
 
+    private ViewFactory() {
+        // to prevent instantiation
+    }
+
     /** The only task of ViewFactory is to return a method based on format.
      *@param format in which the output is expected.
      *@return an IView object.
@@ -15,13 +19,13 @@ public class ViewFactory {
         switch (format) {
             case PRETTY:
                 return new PrettyView();
-            case XML: 
+            case XML:
                 return new XMLView();
-            case JSON: 
+            case JSON:
                 return new JSONView();
-            case CSV: 
+            case CSV:
                 return new CSVView();
-            default: 
+            default:
                 throw new IllegalArgumentException("Unknown format: " + format);
         }
     }
