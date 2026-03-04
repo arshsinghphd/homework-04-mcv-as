@@ -8,7 +8,7 @@ public interface IView {
 
     /** The only task of view is to render information stored in the Domain object on a PrintStream.
      * @param domain Domain object.
-     * @out the PrintStream to render domain information on.
+     * @param out the PrintStream to render domain information on.
      */
     void render(Domain domain, PrintStream out);
 }
