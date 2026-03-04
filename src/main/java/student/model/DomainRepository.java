@@ -4,6 +4,7 @@ import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
+
 import java.io.File;
 import java.util.List;
 import java.util.ArrayList;
@@ -20,11 +21,18 @@ public class DomainRepository {
     /** Stores an xml mapper. */
     private final XmlMapper mapper = new XmlMapper();
 
+    /**
+     * Setter for xmlFile.
+     * @param xmlFile path to the xmlFile.
+     */
     public void setXmlFile(String xmlFile) {
         this.xmlFile = xmlFile;
     }
 
-    /** Primary constructor. */
+    /**
+     * Primary constructor.
+     * @param xmlFile path to the xmlFile.
+     */
     public DomainRepository(String xmlFile) {
         if (xmlFile == null || xmlFile.isBlank()) {
             setXmlFile(DEFAULT_XML_FILE);
@@ -51,36 +59,57 @@ public class DomainRepository {
         }
 
     /**
+     * Helper method to load and parse the XML file into a DomainList.
+     * @return the DomainList, or null if the file does not exist or has no domains
+     * @throws Exception if there is an error reading the XML file
+     */
+    private DomainList loadDomainList() throws Exception {
+        File file = new File(xmlFile);
+        if (!file.exists()) {
+            return null;
+        }
+        try {
+            DomainList domainList = mapper.readValue(file, DomainList.class);
+            return (domainList.domains() == null) ? null : domainList;
+        } catch (Exception e) {
+            throw new Exception("Error reading XML file: " + e.getMessage());
+        }
+    }
+
+    /**
      * Reader: looks for domain information by hostname and returns it.
      * @param hostname the hostname to search for
      * @return the Domain if found, null if not or if there was error in the reading XML
      */
     public Domain findByHostname(String hostname) throws Exception {
-        File file = new File(xmlFile);
-
-        if (!file.exists()) {
-            return null;   // return null if file not found
+        DomainList domainList = loadDomainList();
+        if (domainList == null) {
+            return null;
         }
-
-        try {
-            DomainList domainList = mapper.readValue(file, DomainList.class);
-            // Linear search for hostname among domains in domainList
-            if (domainList.domains() == null) {
-                return null;   // return null if file not found
+        for (Domain domain : domainList.domains()) {
+            if (domain.hostname().equalsIgnoreCase(hostname)) {
+                return domain;
             }
-
-            for (Domain domain : domainList.domains()) {
-                if (domain.hostname().equalsIgnoreCase(hostname)) {
-                    return domain;  
-                }
-            }
-        } catch (Exception e) {
-            throw new Exception("Error reading XML file: " + e.getMessage());
         }
-
-    return null;   // return null if not found
+        return null;
     }
 
+    /**
+     * Returns a list of all hostnames in the XML file.
+     * @return a list of all hostnames, or an empty list if none found
+     * @throws Exception if there is an error reading the XML file
+     */
+    public List<String> getAllHostnames() throws Exception {
+        DomainList domainList = loadDomainList();
+        if (domainList == null) {
+            return new ArrayList<>();
+        }
+        List<String> hostnames = new ArrayList<>();
+        for (Domain domain : domainList.domains()) {
+            hostnames.add(domain.hostname());
+        }
+        return hostnames;
+    }
 
     /**
      * Writer: adds a domain to local database file if it does not already exist.
