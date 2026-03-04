@@ -123,14 +123,14 @@ classDiagram
         - printHelp() void
     }
 
-    namespace controller {
+    namespace CONTROLLER {
         class DNInfoController {
             + DNInfoController(DomainRepository, DomainLookupService)
             + handle(String, Format, PrintStream) void
         }
     }
     
-    namespace model {
+    namespace MODEL {
         class Domain {
             + Domain(String, String, String, String, String, String, double, double)
             + hostname() String
@@ -165,7 +165,7 @@ classDiagram
         }
     }
     
-    namespace view {
+    namespace VIEW {
         class CSVView {
             + CSVView()
             + render(Domain, PrintStream) void
@@ -198,32 +198,34 @@ classDiagram
         }
     }
 
-    DNInfoApp --> DomainRepository : uses
-    DNInfoApp --> DomainLookupService : uses
-    DNInfoApp --> DNInfoController : uses
+    DNInfoApp --> DomainRepository : has a
+    DNInfoApp --> DomainLookupService : has a
+    DNInfoApp --> DNInfoController : has a
 
-    DNInfoController --> DomainRepository : uses
-    DNInfoController --> DomainLookupService : uses
+    DNInfoController --> DomainRepository : has a
+    DNInfoController --> DomainLookupService : has a
     DNInfoController --> ViewFactory : uses
     
-    DomainLookupService  ..>  Domain : uses
-    DomainLookupService  ..>  DomainNotFoundException : uses
-    DomainList -->  Domain: uses
-    DomainRepository  -->  DomainList : uses
-    DomainRepository  ..>  Domain : uses
-    DomainRepository  ..>  DomainList : uses
-    
+    DomainLookupService  -->  Domain : has a
+    DomainLookupService  -->  DomainNotFoundException : has a
+    DomainList -->  Domain: has a
+    DomainRepository  -->  DomainList : has a
+    DomainRepository  -->  Domain : has a
+    DomainRepository  ..>  DomainList : has a
+
+    IView --> Domain: has a
     CSVView  ..>  IView : implements
     JSONView  ..>  IView : implements
     PrettyView  ..>  IView: implements
     XMLView  ..>  IView: implements
+    
+    ViewFactory  ..>  IView : returns
     ViewFactory  ..>  CSVView : uses
     ViewFactory  ..>  Format : uses
-    ViewFactory  ..>  IView : uses
     ViewFactory  ..>  JSONView : uses
     ViewFactory  ..>  PrettyView : uses
     ViewFactory  ..>  XMLView : uses
-    IView --> Domain: uses
+    
 ```
 
 ## (FINAL DESIGN): Reflection/Retrospective
