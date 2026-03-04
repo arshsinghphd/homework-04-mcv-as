@@ -81,13 +81,13 @@ direction TB
     }
     
     DomainNameModel  ..>  DataFormatter 
-    ArgsController "1" *--> "model 1" DomainNameModel
-    ArgsController "1" *--> "format 1" Formats
+    ArgsController "1" --> "model 1" DomainNameModel
+    ArgsController "1" --> "format 1" Formats
     DataFormatter  ..>  DNRecord
     DataFormatter  ..>  Formats
     DomainNameModel  -->  DNRecord
     DomainNameModel  ..>  Formats
-    DomainXmlWrapper "1" *--> "domain *" DNRecord
+    DomainXmlWrapper "1" --> "domain *" DNRecord
     NetUtils  ..>  Formats
 ```
 
